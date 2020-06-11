@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace CodingEvents.Models
 {
@@ -20,11 +22,26 @@ namespace CodingEvents.Models
             nextId++;
         }
 
+        public Event()
+        {
+            Id = nextId;
+            nextId++;
+        }
+
         public override string ToString()
         {
             return Name;
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj is Event @event &&
+                   Id == @event.Id;
+        }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
     }
 }
