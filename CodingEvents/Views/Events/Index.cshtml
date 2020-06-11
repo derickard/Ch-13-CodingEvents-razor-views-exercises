@@ -17,13 +17,14 @@ else
             <th>Event:</th>
             <th>Description:</th>
         </tr>
-        @foreach (KeyValuePair<string, string> meeting in ViewBag.events)
+        @foreach (var meeting in ViewBag.events)
         {
             <tr>
-                <td>@meeting.Key</td>
-                <td>@meeting.Value</td>
+                <td>@meeting.Name</td>
+                <td>@meeting.Description</td>
             </tr>
         }
     </table>
 }
+        
 
