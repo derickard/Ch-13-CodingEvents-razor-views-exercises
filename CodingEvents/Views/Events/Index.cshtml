@@ -20,6 +20,7 @@ else
             <th>Id</th>
             <th>Event</th>
             <th>Description</th>
+            <th></th>
         </tr>
         @foreach (var meeting in ViewBag.events)
         {
@@ -27,6 +28,7 @@ else
                 <td>@meeting.Id</td>
                 <td>@meeting.Name</td>
                 <td>@meeting.Description</td>
+                <td><a asp-controller="Events" asp-action="Edit" asp-route-id="@meeting.Id">Edit Event</a></td>
             </tr>
         }
     </table>
