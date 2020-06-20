@@ -1,4 +1,6 @@
-﻿<link rel="stylesheet" type="text/css" href="~/css/events.css" />
+﻿@model List<CodingEvents.Models.Event>
+
+<link rel="stylesheet" type="text/css" href="~/css/events.css" />
 
 <h1>Coding Events</h1>
 
@@ -9,7 +11,7 @@
     <a asp-controller="Events" asp-action="Delete">Delete Event</a>
 </p>
 
-@if (ViewBag.events.Count < 1)
+@if (Model.Count < 1)
 {
     <p>No Events Yet</p>
 }
@@ -20,14 +22,16 @@ else
             <th>Id</th>
             <th>Event</th>
             <th>Description</th>
+            <th>Contact Email</th>
             <th></th>
         </tr>
-        @foreach (var meeting in ViewBag.events)
+        @foreach (var meeting in Model)
         {
             <tr>
                 <td>@meeting.Id</td>
                 <td>@meeting.Name</td>
                 <td>@meeting.Description</td>
+                <td>@meeting.ContactEmail</td>
                 <td><a asp-controller="Events" asp-action="Edit" asp-route-id="@meeting.Id">Edit Event</a></td>
             </tr>
         }
