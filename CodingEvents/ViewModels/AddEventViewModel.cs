@@ -16,5 +16,16 @@ namespace CodingEvents.ViewModels
 
         [EmailAddress(ErrorMessage = "Invalid email.")]
         public string ContactEmail { get; set; }
+
+        [Required]
+        public string Location { get; set; }
+
+        [Range(0,100000, ErrorMessage = "Attendance between 0 and 100,000")]
+        public int NumberAttendees { get; set; }
+
+        public bool IsTrue { get { return true; } }
+
+        [Compare(nameof(IsTrue), ErrorMessage = "You must register.")]
+        public bool MustRegister { get; set; }
     }
 }

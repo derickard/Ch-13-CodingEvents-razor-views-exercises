@@ -23,6 +23,9 @@ else
             <th>Event</th>
             <th>Description</th>
             <th>Contact Email</th>
+            <th>Location</th>
+            <th>Number of Attendees</th>
+            <th>Registration Required</th>
             <th></th>
         </tr>
         @foreach (var meeting in Model)
@@ -32,6 +35,9 @@ else
                 <td>@meeting.Name</td>
                 <td>@meeting.Description</td>
                 <td>@meeting.ContactEmail</td>
+                <td>@meeting.Location</td>
+                <td>@meeting.NumberAttendees</td>
+                <td>@meeting.MustRegister</td>
                 <td><a asp-controller="Events" asp-action="Edit" asp-route-id="@meeting.Id">Edit Event</a></td>
             </tr>
         }

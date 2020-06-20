@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,9 @@ namespace CodingEvents.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string ContactEmail { get; set; }
+        public string Location { get; set; }
+        public int NumberAttendees { get; set; }
+        public bool MustRegister { get; set; }
 
         public Event()
         {
@@ -21,11 +25,14 @@ namespace CodingEvents.Models
             nextId++;
         }
 
-        public Event(string name, string description, string email) : this()
+        public Event(string name, string description, string email, string location, int attendees, bool register) : this()
         {
             Name = name;
             Description = description;
             ContactEmail = email;
+            Location = location;
+            NumberAttendees = attendees;
+            MustRegister = register;
 
         }
 

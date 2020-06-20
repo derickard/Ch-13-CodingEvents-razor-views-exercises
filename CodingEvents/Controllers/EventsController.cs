@@ -29,11 +29,11 @@ namespace CodingEvents.Controllers
         }
 
         [HttpPost("/Events/Add")]
-        public IActionResult NewEvent([Bind("Name,Description,ContactEmail")] AddEventViewModel addEventViewModel)
+        public IActionResult NewEvent([Bind("Name,Description,ContactEmail,Location,NumberAttendees,MustRegister")] AddEventViewModel addEventViewModel)
         {
             if(ModelState.IsValid)
             {
-                Event newEvent = new Event(addEventViewModel.Name, addEventViewModel.Description, addEventViewModel.ContactEmail);
+                Event newEvent = new Event(addEventViewModel.Name, addEventViewModel.Description, addEventViewModel.ContactEmail, addEventViewModel.Location, addEventViewModel.NumberAttendees, addEventViewModel.MustRegister);
                 EventData.Add(newEvent);
 
                 return Redirect("/Events");
