@@ -28,6 +28,10 @@
         <span asp-validation-for="NumberAttendees"></span>
     </div>
     <div class="form-group">
+        <label asp-for="Type">Event Type</label>
+        <select asp-for="Type" asp-items="Model.EventTypes"></select>
+    </div>
+    <div class="form-group">
         <label asp-for="MustRegister" for="mustregister">
             Must Register
             <input asp-for="MustRegister" class="form-control" id="mustregister" name="mustregister" type="checkbox" />

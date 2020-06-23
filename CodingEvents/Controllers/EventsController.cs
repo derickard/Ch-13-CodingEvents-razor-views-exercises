@@ -33,7 +33,7 @@ namespace CodingEvents.Controllers
         {
             if(ModelState.IsValid)
             {
-                Event newEvent = new Event(addEventViewModel.Name, addEventViewModel.Description, addEventViewModel.ContactEmail, addEventViewModel.Location, addEventViewModel.NumberAttendees, addEventViewModel.MustRegister);
+                Event newEvent = new Event(addEventViewModel.Name, addEventViewModel.Description, addEventViewModel.ContactEmail, addEventViewModel.Type, addEventViewModel.Location, addEventViewModel.NumberAttendees, addEventViewModel.MustRegister);
                 EventData.Add(newEvent);
 
                 return Redirect("/Events");

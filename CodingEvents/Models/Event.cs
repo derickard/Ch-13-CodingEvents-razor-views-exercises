@@ -18,6 +18,8 @@ namespace CodingEvents.Models
         public string Location { get; set; }
         public int NumberAttendees { get; set; }
         public bool MustRegister { get; set; }
+        public EventType Type { get; set; }
+
 
         public Event()
         {
@@ -25,7 +27,7 @@ namespace CodingEvents.Models
             nextId++;
         }
 
-        public Event(string name, string description, string email, string location, int attendees, bool register) : this()
+        public Event(string name, string description, string email, EventType type, string location, int attendees, bool register) : this()
         {
             Name = name;
             Description = description;
@@ -33,6 +35,7 @@ namespace CodingEvents.Models
             Location = location;
             NumberAttendees = attendees;
             MustRegister = register;
+            Type = type;
 
         }
 
