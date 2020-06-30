@@ -1,0 +1,23 @@
+﻿@model List<CodingEvents.Models.EventCategory>
+
+<link rel="stylesheet" type="text/css" href="~/css/events.css" />
+
+<h1>Coding Events</h1>
+
+<p>
+    <a asp-controller="EventCategory" asp-action="Create">Create Category</a>
+</p>
+
+
+
+<table id="events">
+    <tr>
+        <th>Category Name</th>
+    </tr>
+    @foreach (var category in Model)
+    {
+        <tr>
+            <td>@category.Name</td>
+        </tr>
+    }
+</table>
