@@ -7,17 +7,23 @@ using CodingEvents.Data;
 using CodingEvents.Models;
 using CodingEvents.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace CodingEvents.Controllers
 {
     public class EventsController : Controller
     {
+        private readonly EventDbContext context;
+        public EventsController(EventDbContext dbContext)
+        {
+            context = dbContext;
+        }
 
         // GET: /<controller>/
         [HttpGet]
         public IActionResult Index()
         {
-            List<Event> events = new List<Event>(EventData.GetAll());
+            List<Event> events = context.Events.ToList();
             return View(events);
         }
 
@@ -29,12 +35,13 @@ namespace CodingEvents.Controllers
         }
 
         [HttpPost("/Events/Add")]
-        public IActionResult NewEvent([Bind("Name,Description,ContactEmail,Location,NumberAttendees,MustRegister")] AddEventViewModel addEventViewModel)
+        public async Task<IActionResult> NewEvent([Bind("Name,Description,ContactEmail,Location,NumberAttendees,MustRegister")] AddEventViewModel addEventViewModel)
         {
             if(ModelState.IsValid)
             {
                 Event newEvent = new Event(addEventViewModel.Name, addEventViewModel.Description, addEventViewModel.ContactEmail, addEventViewModel.Type, addEventViewModel.Location, addEventViewModel.NumberAttendees, addEventViewModel.MustRegister);
-                EventData.Add(newEvent);
+                context.Events.Add(newEvent);
+                await context.SaveChangesAsync();
 
                 return Redirect("/Events");
             }
@@ -43,19 +50,20 @@ namespace CodingEvents.Controllers
 
         public IActionResult Delete()
         {
-            ViewBag.events = EventData.GetAll();
+            ViewBag.events = context.Events.ToList();
 
             return View();
         }
 
         [HttpPost]
-        public IActionResult Delete(int[] eventIds)
+        public async Task<IActionResult> Delete(int[] eventIds)
         {
             foreach(int eventId in eventIds)
             {
-                EventData.Remove(eventId);
+                Event theEvent = await context.Events.FindAsync(eventId);
+                context.Events.Remove(theEvent);
             }
-
+            await context.SaveChangesAsync();
             return Redirect("/Events");
         }
 
@@ -63,16 +71,20 @@ namespace CodingEvents.Controllers
         [Route("/Events/Edit/{eventId}")]
         public IActionResult Edit(int eventId)
         {
-            ViewBag.title = $"Edit Event {EventData.GetById(eventId).Name} (id={EventData.GetById(eventId).Id})";
-            ViewBag.editEvent = EventData.GetById(eventId);
+            ViewBag.title = $"Edit Event {context.Events.Find(eventId).Name} (id={context.Events.Find(eventId).Id})";
+            ViewBag.editEvent = context.Events.Find(eventId);
+
+            //ViewBag.title = $"Edit Event {EventData.GetById(eventId).Name} (id={EventData.GetById(eventId).Id})";
+            //ViewBag.editEvent = EventData.GetById(eventId);
             return View();
         }
 
         [HttpPost("/Events/Edit")]
         public IActionResult SubmittedEditEventForm(int eventId, string name, string description)
         {
-            EventData.GetById(eventId).Name = name;
-            EventData.GetById(eventId).Description = description;
+            context.Events.Find(eventId).Name = name;
+            context.Events.Find(eventId).Description = description;
+            context.SaveChanges();
             return Redirect("/Events");
         }
     }

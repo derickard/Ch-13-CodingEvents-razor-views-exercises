@@ -10,8 +10,7 @@ namespace CodingEvents.Models
 {
     public class Event
     {
-        public int Id { get; }
-        static private int nextId = 1;
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string ContactEmail { get; set; }
@@ -23,8 +22,6 @@ namespace CodingEvents.Models
 
         public Event()
         {
-            Id = nextId;
-            nextId++;
         }
 
         public Event(string name, string description, string email, EventType type, string location, int attendees, bool register) : this()
