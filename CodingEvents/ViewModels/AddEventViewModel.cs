@@ -25,37 +25,26 @@ namespace CodingEvents.ViewModels
         [Range(0,100000, ErrorMessage = "Attendance between 0 and 100,000")]
         public int NumberAttendees { get; set; }
 
-        public EventType Type { get; set; }
-
-        public List<SelectListItem> EventTypes { get; set; }
+        [Required(ErrorMessage = "Category is required")]
+        public int CategoryId { get; set; }
+        public List<SelectListItem> Categories { get; set; }
 
         public AddEventViewModel()
         {
-            EventTypes = new List<SelectListItem>();
+        }
 
-            EventTypes.Add(new SelectListItem
-            {
-                Value = EventType.CONFERENCE.ToString(),
-                Text = EventType.CONFERENCE.ToString()
-            });
+        public AddEventViewModel(List<EventCategory> categories)
+        {
+            Categories = new List<SelectListItem>();
 
-            EventTypes.Add(new SelectListItem
+            foreach(var category in categories)
             {
-                Value = EventType.MEETUP.ToString(),
-                Text = EventType.MEETUP.ToString()
-            });
-
-            EventTypes.Add(new SelectListItem
-            {
-                Value = EventType.SOCIAL.ToString(),
-                Text = EventType.SOCIAL.ToString()
-            });
-
-            EventTypes.Add(new SelectListItem
-            {
-                Value = EventType.WORKSHOP.ToString(),
-                Text = EventType.WORKSHOP.ToString()
-            });
+                Categories.Add(new SelectListItem
+                {
+                    Value = category.Id.ToString(),
+                    Text = category.Name
+                });
+            }
         }
 
         public bool IsTrue { get { return true; } }

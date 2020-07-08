@@ -7,7 +7,7 @@ using CodingEvents.Data;
 using CodingEvents.Models;
 using CodingEvents.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodingEvents.Controllers
 {
@@ -23,23 +23,35 @@ namespace CodingEvents.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<Event> events = context.Events.ToList();
+            List<Event> events = context.Events.Include(e => e.Category).ToList();
             return View(events);
         }
 
         [HttpGet]
         public IActionResult Add()
         {
-            AddEventViewModel addEventViewModel = new AddEventViewModel();
+            AddEventViewModel addEventViewModel = new AddEventViewModel(context.EventCategories.ToList());
             return View(addEventViewModel);
         }
 
+        //[Bind("Name,Description,ContactEmail,Category,Location,NumberAttendees,MustRegister")]
         [HttpPost("/Events/Add")]
-        public async Task<IActionResult> NewEvent([Bind("Name,Description,ContactEmail,Location,NumberAttendees,MustRegister")] AddEventViewModel addEventViewModel)
+        public async Task<IActionResult> NewEvent(AddEventViewModel addEventViewModel)
         {
             if(ModelState.IsValid)
             {
-                Event newEvent = new Event(addEventViewModel.Name, addEventViewModel.Description, addEventViewModel.ContactEmail, addEventViewModel.Type, addEventViewModel.Location, addEventViewModel.NumberAttendees, addEventViewModel.MustRegister);
+                EventCategory category = context.EventCategories.Find(addEventViewModel.CategoryId);
+                Event newEvent = new Event
+                {
+                    Name = addEventViewModel.Name,
+                    Description = addEventViewModel.Description,
+                    ContactEmail = addEventViewModel.ContactEmail,
+                    Category = category,
+                    Location = addEventViewModel.Location,
+                    NumberAttendees = addEventViewModel.NumberAttendees,
+                    MustRegister = addEventViewModel.MustRegister
+                };
+
                 context.Events.Add(newEvent);
                 await context.SaveChangesAsync();
 
