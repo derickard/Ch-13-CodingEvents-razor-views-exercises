@@ -1,0 +1,25 @@
+﻿@model CodingEvents.ViewModels.EventDetailViewModel
+
+<link rel="stylesheet" type="text/css" href="~/css/events.css" />
+
+<h1>Event Details</h1>
+
+<table id="events">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Contact Email</th>
+        <th>Event Type</th>
+        <th>Tags</th>
+    </tr>
+    <tr>
+        <td>@Model.Name</td>
+        <td>@Model.Description</td>
+        <td>@Model.ContactEmail</td>
+        <td>@Model.CategoryName</td>
+        <td>@Model.TagText</td>
+    </tr>
+</table>
+
+<a asp-controller="Tag" asp-action="AddEvent" asp-route-id="@Model.EventId">Add Tag</a>
+

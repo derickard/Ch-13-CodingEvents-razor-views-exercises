@@ -1,0 +1,14 @@
+﻿@model List<CodingEvents.Models.Tag>
+
+<h1>Event Tags</h1>
+
+<table>
+    @foreach (var tag in Model)
+    {
+        <tr>
+            <td><a asp-controller="Tag" asp-action="Detail" asp-route-id="@tag.Id">#@tag.Name</a></td>
+        </tr>
+
+    }
+</table>
+

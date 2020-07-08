@@ -5,6 +5,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200708140512_EventCategories.cs" />
+    <Compile Remove="Migrations\20200708140512_EventCategories.Designer.cs" />
+    <Compile Remove="Migrations\20200708165158_Tag.cs" />
+    <Compile Remove="Migrations\20200708165158_Tag.Designer.cs" />
+    <Compile Remove="Migrations\20200708170448_fixMaybe.cs" />
+    <Compile Remove="Migrations\20200708170448_fixMaybe.Designer.cs" />
+    <Compile Remove="Migrations\20200708170618_fixMaybe.cs" />
+    <Compile Remove="Migrations\20200708170618_fixMaybe.Designer.cs" />
+    <Compile Remove="Migrations\20200708170725_fixmaybe.cs" />
+    <Compile Remove="Migrations\20200708170725_fixmaybe.Designer.cs" />
+    <Compile Remove="Migrations\20200708171237_fixMaybe.cs" />
+    <Compile Remove="Migrations\20200708171237_fixMaybe.Designer.cs" />
+    <Compile Remove="Migrations\20200708171326_fixMaybe.cs" />
+    <Compile Remove="Migrations\20200708171326_fixMaybe.Designer.cs" />
+    <Compile Remove="Migrations\20200708171603_fixMayb.cs" />
+    <Compile Remove="Migrations\20200708171603_fixMayb.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
